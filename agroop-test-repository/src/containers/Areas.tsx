@@ -1,48 +1,47 @@
-import React , {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import { AreaService } from "../services/AreaService";
 import { useService } from "rc-service";
-import {Area} from '../services/AreaService';
+import { Area } from '../services/AreaService';
+import styles from '../styles/components/card.module.scss'
 
 const Areas: React.SFC<Area> = () => {
   const areaService = useService(AreaService);
   let [areas, setAreas] = useState(areaService.areas.read());
   const deleteAreaAction = (id: any) => (areaService.deleteArea(id));
-  useEffect(()=>{
+  useEffect(() => {
     setAreas(areaService.areas.read());
   }, [areas]);
 
   const areaList = areas.value ? (
     areas.value.map((area: Area) => (
-      <div key={area.id}>
-        <div>
-          <span>Area: </span>
-          <span>{area.area}</span>
+      <article className={styles.card} key={area.id}>
+        <div className={styles.card__body}>
+          <div className={styles.card__left_panel}>
+            <div>
+              <h3 className={styles.card__title}>{area.name}</h3>
+            </div>
+            <div className={styles.card__intro}>
+              {area.crop}
+            </div>
+          </div>
+          <div className={styles.card__right_panel}>
+            <div>
+              <Link className={styles.card__button} to={`/update-area/` + area.id}><span >Edit</span></Link>
+              <div className={styles.card__button}><span className={styles.card_delete} onClick={() => deleteAreaAction(area.id)}>Delete</span></div> 
+            </div>
+          </div>
         </div>
-        <div>
-          <span>Crop: </span>
-          <span>{area.crop}</span>
-        </div>
-        <div>
-          <span>Device: </span>
-          <span>{area.device}</span>
-        </div>
-        <div>
-          <span>Name: </span>
-          <span>{area.name}</span>
-        </div>
-        <div><Link to={`/update-area/` + area.id }>Update Area</Link></div>
-        <div><button onClick={() => deleteAreaAction(area.id)}>Delete</button></div>
-      </div>
+      </article>
     ))
   ) : (
-    <div>No Areas to show</div>
-  );
+      <div>No Areas to show</div>
+    );
   return (
-    <div>
-      <span>Area Container</span>
-      <div>{areaList}</div>
-      <div><button><Link to="/add-areas">Add Area</Link></button></div>
+    <div className={styles.card_container}>
+      <span className={styles.card_container__title}>Areas</span>
+      <div className={styles.card_container__add}><div ><Link className={styles.card__button} to="/add-areas">+ Add Area</Link></div></div>
+      <div className={styles.card_wrapper}>{areaList}</div>
     </div>
   );
 };

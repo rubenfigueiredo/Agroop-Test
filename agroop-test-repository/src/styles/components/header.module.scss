@@ -1,0 +1,33 @@
+@import "../base/variables.module.scss";
+@import "../components/button.module.scss";
+.header
+{
+  background: $color-light-green;
+  color: #fff;
+  border-radius: 3px;
+  padding: 15px;
+  font-weight: 700;
+  vertical-align: middle;
+  line-height: 35px;
+  padding-left: 80px;
+  padding-right: 80px;
+  box-shadow: 0 20px 20px -15px rgba(0, 0, 0, 0.3);
+  &__logo{
+    font-size: 23px;
+  }
+  &__links{
+    &_right{
+      float: right;
+      font-size: 15px;
+      span{
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      a{
+        text-transform: uppercase;
+        text-decoration: none !important;
+        color: #fff !important;
+      }
+    }  
+  }
+}
