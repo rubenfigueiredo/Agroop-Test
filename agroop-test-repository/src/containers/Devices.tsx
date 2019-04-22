@@ -5,31 +5,29 @@ import { useService } from "rc-service";
 import { Area } from '../services/AreaService';
 import styles from '../styles/components/card.module.scss'
 
-const Areas: React.SFC<Area> = () => {
+const Devices: React.SFC<Area> = () => {
   const areaService = useService(AreaService);
-  const areas = areaService.areas.read();
+  let areas = areaService.areas.read();
   console.log('areas', areas);
-  const deleteAreaAction = (id: any) => (areaService.deleteArea(id));
 
   const areaList = areas.value ? (
     areas.value.map((area: Area) => (
       <article className={styles.card} key={area.id}>
-        <div className={styles.card__body}>
-          <div className={styles.card__panel}>
-            <div>
-              <h3 className={styles.card__title}>{area.name}</h3>
+        <Link to={`/devices/` + area.device}>
+          <div className={styles.card__body}>
+            <div className={styles.card__panel}>
+              <div>
+                <h3 className={styles.card__title}>{area.name}</h3>
+              </div>
+              <div className={styles.card__intro}>
+                {area.crop}
+              </div>
             </div>
-            <div className={styles.card__intro}>
-              {area.crop}
+            <div className={`${styles.card__right_panel} ${styles.card__panel}`}>
+              <p>{area.device}</p>              
             </div>
           </div>
-          <div className={`${styles.card__right_panel} ${styles.card__panel}`}>
-            <div>
-              <Link className={styles.card__button} to={`/update-area/` + area.id}><span >Edit</span></Link>
-              <div className={styles.card__button}><span className={styles.card_delete} onClick={() => deleteAreaAction(area.id)}>Delete</span></div> 
-            </div>
-          </div>
-        </div>
+        </Link>
       </article>
     ))
   ) : (
@@ -44,4 +42,4 @@ const Areas: React.SFC<Area> = () => {
   );
 };
 
-export default Areas;
+export default Devices;

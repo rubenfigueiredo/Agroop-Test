@@ -4,6 +4,7 @@ import { useService } from "rc-service";
 import { AreaService } from "../services/AreaService";
 import { DeviceService } from "../services/DeviceService";
 import AreasForm from "../components/AreasForm";
+import styles from "../styles/components/container.module.scss";
 
 
 const AddArea: React.SFC<any> = () => {
@@ -13,9 +14,8 @@ const AddArea: React.SFC<any> = () => {
   const devices = deviceService.devices.read();
   console.log("devices", devices); 
   return (
-    <div>
-      Add area Component
-      <Link to="areas">Go to Area's List</Link>
+    <div className={styles.container}>
+    <div className={styles.container__title_div}><h3 className={styles.container__title}>Add an area</h3></div>
       <AreasForm devices={devices.value} submitAction={AddAreaAction}/>
     </div>
   )
