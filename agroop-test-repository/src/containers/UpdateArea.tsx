@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import { AreaService, Area } from "../services/AreaService";
 import { DeviceService } from "../services/DeviceService";
@@ -19,7 +19,9 @@ const UpdateArea: React.SFC<any> = props => {
   let area: any = areaService.area.read(id);
   return (
     <div className={styles.container}>
-    <div className={styles.container__title_div}><h3 className={styles.container__title}>Edit an area</h3></div>
+      <div className={styles.container__title_div}>
+        <h3 className={styles.container__title}>Edit an area</h3>
+      </div>
       <AreasForm
         area={area.value}
         devices={devices.value}

@@ -13,7 +13,7 @@ const Devices: React.SFC<Area> = () => {
   const areaList = areas.value ? (
     areas.value.map((area: Area) => (
       <article className={styles.card} key={area.id}>
-        <Link to={`/devices/` + area.device}>
+        <Link to={`/device/` + area.device}>
           <div className={styles.card__body}>
             <div className={styles.card__panel}>
               <div>
@@ -36,7 +36,7 @@ const Devices: React.SFC<Area> = () => {
   return (
     <div className={styles.card_container}>
       <span className={styles.card_container__title}>Areas</span>
-      <div className={styles.card_container__add}><div ><Link className={styles.card__button} to="/add-areas">+ Add Area</Link></div></div>
+      <div className={styles.card_container__add}></div>
       <div className={styles.card_wrapper}>{areaList}</div>
     </div>
   );

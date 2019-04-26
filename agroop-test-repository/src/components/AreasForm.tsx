@@ -95,6 +95,7 @@ const AreasForm: React.SFC<IUpdateAreaProps> = (props: IUpdateAreaProps) => {
             </label>
           </div>
           <div className={styles.form__align_right}>
+            <button>Cancel</button>
             <button className={styles.form__button_save} type="submit">Save</button>
           </div>
         </form>
