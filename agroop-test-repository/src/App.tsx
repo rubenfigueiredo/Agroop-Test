@@ -9,6 +9,7 @@ import SoilMoisture from "./containers/SoilMoisture";
 import "./App.scss";
 import styles from './styles/layout/body.module.scss';
 
+
 const App = () => (
   <BrowserRouter>
     <div className={styles.main}>
