@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import moment from "moment";
 import {
   LineChart,
   Line,
@@ -9,7 +10,7 @@ import {
 } from "recharts";
 
 const Graph: React.SFC<any> = ({ graphValues, lines, labels, filterKey }) => {
-
+  //console.log("graphValues", graphValues);
   const toggleFilterKey = (e: any) => {
     e.persist();
     const data = e.target.dataset;
@@ -51,6 +52,18 @@ const Graph: React.SFC<any> = ({ graphValues, lines, labels, filterKey }) => {
     );
   });
 
+  const TooltipContent = ({active, payload, label}: any) => {
+    console.log("active", active);
+    
+    if(active){
+      let result = payload && payload.map((value: any) => {
+        return <div key={value.name}><p>{value.name}</p>{value.value}</div>
+      });
+      return <div><div>{result}</div><div>{moment(label).format("MMMM Do YYYY, h:mm:ss a")}</div></div>;
+    }
+    return null;
+  }
+
   return (
     <div>
       <LineChart
@@ -61,7 +74,7 @@ const Graph: React.SFC<any> = ({ graphValues, lines, labels, filterKey }) => {
       >
         <XAxis dataKey="timestamp" hide={true} />
         <YAxis />
-        <Tooltip cursor={false} />
+        <Tooltip cursor={false} content={TooltipContent}/>
         <CartesianGrid vertical={false} horizontal={true} />
         {Lines}
       </LineChart>

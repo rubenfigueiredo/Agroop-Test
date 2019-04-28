@@ -2,26 +2,28 @@ import React, { useState, useEffect } from "react";
 import DateRangePicker from "react-daterange-picker";
 import "react-daterange-picker/dist/css/react-calendar.css";
 import * as originalMoment from "moment";
-
 import { extendMoment } from "moment-range";
-import { log } from "util";
+
 const moment = extendMoment(originalMoment);
 
-const DatePickerSelector: React.SFC<any> = props => {
+const DateRangePickerSelector: React.SFC<any> = ({selectDates}) => {
   const today = moment();
-  const [dates, setDates] = useState(
-    moment.range(today.clone().subtract(7, "days"), today.clone())
-  );
+  const [dates, setDates] = useState(moment.range(today.clone().subtract(7, "days"), today.clone()));
   const [isOpen, setIsOpen] = useState(false);
+  const updateDates = (values:any) => {
+    setDates(values);
+  }
   const toggleOpen = () => {
     setIsOpen(!isOpen);
-    console.log("isOpen", isOpen);
   };
   const handleOnSelect = (value: any) => {
-    setDates(moment.range(value.start._i, value.end._i));
-    toggleOpen()
-    console.log("dates", dates);
+    updateDates(moment.range(value.start, value.end));
+    toggleOpen();
+    //selectDates(dates);
   };
+  useEffect(() => {
+    selectDates(dates);
+  }, [dates]);
 
   return (
     <div>
@@ -35,6 +37,8 @@ const DatePickerSelector: React.SFC<any> = props => {
         {isOpen && (
           <DateRangePicker
             value={dates}
+            minimumDate={new Date(today.clone().subtract(3, "years").format("YYYY-MM-DD"))}
+            maximumDate={new Date(today.format("YYYY-MM-DD"))}
             onSelect={handleOnSelect}
             singleDateRange={false}
             numberOfCalendars={2}
@@ -45,4 +49,4 @@ const DatePickerSelector: React.SFC<any> = props => {
   );
 };
 
-export default DatePickerSelector;
+export default DateRangePickerSelector;
