@@ -5,13 +5,23 @@ import {
   SoilMoistureService
 } from "../services/SoilMoistureService";
 import Graph from "../components/Graph";
-import { sumValues, filterSelectedValues, addSelectedValue, graphLine } from "../utils/graphFilter";
+import {
+  sumValues,
+  filterSelectedValues,
+  addSelectedValue,
+  graphLine
+} from "../utils/graphFilter";
 import DateRangePickerSelector from "../components/DateRangePickerSelector";
+import * as originalMoment from "moment";
+import { extendMoment, DateRange } from "moment-range";
+import styles from "../styles/components/container.module.scss";
+
+const moment = extendMoment(originalMoment);
 
 const SoilMoisture: React.SFC<any> = props => {
-
   let soilMoistureService = useService(SoilMoistureService);
-  
+  const { id } = props.match.params;
+
   const initGraphValues: graphLine[] = [
     { key: "S1T", color: "green" },
     { key: "S2T", color: "blue" },
@@ -21,32 +31,49 @@ const SoilMoisture: React.SFC<any> = props => {
   const sumGraphValues: graphLine[] = [{ key: "sum", color: "black" }];
 
   let [graphSelectedValues, setGraphSelectedValues] = useState(initGraphValues);
-
+  const today = moment();
+  const [dates, setDates] = useState(moment.range(today.clone().subtract(7, "days"), today.clone()));
+  
   const filterKey = (key: any, filter: any) => {
     filter === "true"
       ? filterSelectedValues(key, graphSelectedValues, setGraphSelectedValues)
-      : addSelectedValue(key, initGraphValues, graphSelectedValues, setGraphSelectedValues);
+      : addSelectedValue(
+          key,
+          initGraphValues,
+          graphSelectedValues,
+          setGraphSelectedValues
+        );
   };
 
+  const selectDates = (values: any) => {
+    setDates(values);
 
-  const selectDates = ({start, end}: any) => {
+    let beginDate = new Date(values.start);
+    let endDate = new Date(values.end);
     
-    let beginDate = new Date(start); 
-    let endDate = new Date(end);
-    
-    const { id } = props.match.params;
     let params: SoilMoistureParams = {
       beginDate: beginDate.getTime(),
       deviceID: id,
       endDate: endDate.getTime()
     };
     soilMoistureService.getSoilMoisture(params);
-  }
+  };
+
+  useEffect(() => {
+    selectDates(dates);
+  }, []);
 
   return (
-    <div>
-      <div>
-        <DateRangePickerSelector selectDates={selectDates} />
+    <div className={styles.container}>
+      <div className={styles.container__title_div}>
+        <div className={styles.container__table}>
+          <div className={styles.container__table__cell}>
+            <h3 className={styles.container__title}>Device - {id}</h3>
+          </div>
+          <div className={styles.container__table__cell}>
+            <DateRangePickerSelector dates={dates} selectDates={selectDates} today={today}/>
+          </div>
+        </div>
       </div>
       <div>
         <Graph

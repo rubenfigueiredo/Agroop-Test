@@ -1,30 +1,23 @@
 import React, { useState, useEffect } from "react";
 import DateRangePicker from "react-daterange-picker";
 import "react-daterange-picker/dist/css/react-calendar.css";
-import * as originalMoment from "moment";
-import { extendMoment, DateRange } from "moment-range";
 
-const moment = extendMoment(originalMoment);
 interface IDateRangePickerSelectorProps {
-  selectDates: (value : DateRange) => void
+  selectDates: (value : any) => void
+  dates: any,
+  today: any
 }
-const DateRangePickerSelector: React.SFC<IDateRangePickerSelectorProps> = ({selectDates}) => {
-  const today = moment();
-  const [dates, setDates] = useState(moment.range(today.clone().subtract(7, "days"), today.clone()));
+const DateRangePickerSelector: React.SFC<IDateRangePickerSelectorProps> = ({selectDates, dates, today}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const updateDates = (values:any) => {
-    setDates(values);
-  }
+  console.log("rendered dates", dates);
+  
   const toggleOpen = (): void => {
     setIsOpen(!isOpen);
   };
-  const handleOnSelect = (value: DateRange): void => {
-    updateDates(moment.range(value.start, value.end));
+  const handleOnSelect = (values: any): void => {
+    selectDates(values);
     toggleOpen();
   };
-  useEffect(() => {
-    selectDates(dates);
-  }, [dates]);
 
   return (
     <div>

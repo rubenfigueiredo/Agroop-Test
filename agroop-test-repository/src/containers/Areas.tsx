@@ -8,7 +8,6 @@ import styles from '../styles/components/card.module.scss'
 const Areas: React.SFC<Area> = () => {
   const areaService = useService(AreaService);
   const areas = areaService.areas.read();
-  console.log('areas', areas);
   const deleteAreaAction = (id: any) => (areaService.deleteArea(id));
 
   const areaList = areas.value ? (

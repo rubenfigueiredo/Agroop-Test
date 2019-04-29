@@ -20,7 +20,6 @@ const AreasForm: React.SFC<IUpdateAreaProps> = (props: IUpdateAreaProps) => {
   useEffect(() => {
     if(props.area){
       setValues(props.area);
-      console.log("useState updated", values);
     }
   }, [props.area]);
 
@@ -33,7 +32,6 @@ const AreasForm: React.SFC<IUpdateAreaProps> = (props: IUpdateAreaProps) => {
       ...values,
       [event.target.name]: event.target.value
     }));
-    console.log("values", values);
   };
   const handleSubmit = (event: any) => {
     if (event) event.preventDefault();

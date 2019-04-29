@@ -1,18 +1,23 @@
 @import "../base/variables.module.scss";
+@import "../components/table.module.scss";
 
 .container{
     padding: 3%;
     background-color: $color-white;
+    
     &__title{
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         flex-grow: 1;
         font-weight: 600;
-        color: $color-medium-orange;
+        color: $color-dark-grey;
     }
     &__title_div{
         width: 60%;
         margin: auto;
+    }
+    &__table{
+        @include table;
     }
 }

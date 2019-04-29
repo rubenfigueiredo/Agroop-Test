@@ -1,4 +1,5 @@
 import { Service, createCache } from "rc-service";
+import { apiUrl, token } from "../utils/consts";
 import {
   Normalized,
   normalizeCreate,
@@ -7,13 +8,8 @@ import {
   normalizeSet
 } from "../utils/normalize";
 
-const apiUrl = "https://api-device.agroop.net/devices";
-const username = "ruben";
-const password = "testpassapi";
-const token = btoa(`${username}:${password}`);
-
 const getDevices = () =>
-  fetch(`${apiUrl}`, {
+  fetch(`${apiUrl}/devices`, {
     method: "GET",
     headers: { Authorization: `Basic ${token}` }
   }).then((r) => r.json()) as Promise<String[]>;

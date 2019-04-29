@@ -1,0 +1,8 @@
+@mixin table{
+    display: table;
+    &__cell{
+        display: table-cell !important;
+        width: 100%;
+        vertical-align: middle;
+    }
+}

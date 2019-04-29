@@ -13,7 +13,7 @@ const UpdateArea: React.SFC<any> = props => {
   const deviceService = useService(DeviceService);
   const updateAreaAction = (values: any) => {
     console.log("updated values", values);
-    areaService.changeArea(values);
+    areaService.changeArea(values).then(props.history.push("/areas"));
   };
   const devices = deviceService.devices.read();
   let area: any = areaService.area.read(id);
