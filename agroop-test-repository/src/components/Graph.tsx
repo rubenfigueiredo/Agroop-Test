@@ -8,10 +8,16 @@ import {
   CartesianGrid,
   Tooltip
 } from "recharts";
+import { graphLine } from "../utils/graphFilter";
 
-const Graph: React.SFC<any> = ({ graphValues, lines, labels, filterKey }) => {
-  //console.log("graphValues", graphValues);
-  const toggleFilterKey = (e: any) => {
+interface IGraphProps {
+  filterKey?: (key: any, filter: string | boolean) => void,
+  lines: graphLine[],
+  graphValues: any[],
+  labels: graphLine[]
+}
+const Graph: React.SFC<IGraphProps> = ({ graphValues, lines, labels, filterKey }) => {
+  const toggleFilterKey = filterKey ? (e: any) => {
     e.persist();
     const data = e.target.dataset;
     if (data.filter === "false") {
@@ -20,12 +26,12 @@ const Graph: React.SFC<any> = ({ graphValues, lines, labels, filterKey }) => {
       data.filter = "false";
     }
     filterKey(data.key, data.filter);
-  };
+  } : null;
 
-  const Labels = labels.map((label: any) => {
+  const Labels = labels.map((label: graphLine) => {
     return (
       <div key={label.key} style={{cursor: 'pointer'}}>
-        {filterKey ? (
+        {toggleFilterKey ? (
           <div
             data-key={label.key}
             data-filter={false}
@@ -53,8 +59,6 @@ const Graph: React.SFC<any> = ({ graphValues, lines, labels, filterKey }) => {
   });
 
   const TooltipContent = ({active, payload, label}: any) => {
-    console.log("active", active);
-    
     if(active){
       let result = payload && payload.map((value: any) => {
         return <div key={value.name}><p>{value.name}</p>{value.value}</div>

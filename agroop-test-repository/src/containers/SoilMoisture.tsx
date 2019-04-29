@@ -5,45 +5,27 @@ import {
   SoilMoistureService
 } from "../services/SoilMoistureService";
 import Graph from "../components/Graph";
-import { sumValues } from "../utils/helpers";
+import { sumValues, filterSelectedValues, addSelectedValue, graphLine } from "../utils/graphFilter";
 import DateRangePickerSelector from "../components/DateRangePickerSelector";
 
 const SoilMoisture: React.SFC<any> = props => {
 
   let soilMoistureService = useService(SoilMoistureService);
-  const initGraphValues = [
+  
+  const initGraphValues: graphLine[] = [
     { key: "S1T", color: "green" },
     { key: "S2T", color: "blue" },
     { key: "S3T", color: "orange" },
     { key: "S4T", color: "pink" }
   ];
+  const sumGraphValues: graphLine[] = [{ key: "sum", color: "black" }];
+
   let [graphSelectedValues, setGraphSelectedValues] = useState(initGraphValues);
-
-  const filterSelectedValues = (key: any, array: any[]) => {
-    let result = graphSelectedValues.filter(value => {
-      return value.key !== key;
-    });
-    setGraphSelectedValues(result);
-  };
-
-  const addSelectedValue = (
-    key: any,
-    initValues: any[],
-    currentValues: any[]
-  ) => {
-    let currArrayCopy = [...currentValues];
-    initValues.forEach((value, index) => {
-      if (value.key === key) {
-        currArrayCopy.splice(index, 0, value);
-      }
-    });
-    setGraphSelectedValues(currArrayCopy);
-  };
 
   const filterKey = (key: any, filter: any) => {
     filter === "true"
-      ? filterSelectedValues(key, graphSelectedValues)
-      : addSelectedValue(key, initGraphValues, graphSelectedValues);
+      ? filterSelectedValues(key, graphSelectedValues, setGraphSelectedValues)
+      : addSelectedValue(key, initGraphValues, graphSelectedValues, setGraphSelectedValues);
   };
 
 
@@ -51,10 +33,9 @@ const SoilMoisture: React.SFC<any> = props => {
     
     let beginDate = new Date(start); 
     let endDate = new Date(end);
-    console.log("beginDate", beginDate);
     
     const { id } = props.match.params;
-    let params = {
+    let params: SoilMoistureParams = {
       beginDate: beginDate.getTime(),
       deviceID: id,
       endDate: endDate.getTime()
@@ -76,12 +57,12 @@ const SoilMoisture: React.SFC<any> = props => {
         />
       </div>
       <Graph
-        lines={[{ key: "sum", color: "black" }]}
+        lines={sumGraphValues}
         graphValues={sumValues(
           soilMoistureService.state.soilMoisture,
           graphSelectedValues
         )}
-        labels={[{ key: "sum", color: "black" }]}
+        labels={sumGraphValues}
       />
       <div />
     </div>
