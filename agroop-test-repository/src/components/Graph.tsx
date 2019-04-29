@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import moment from "moment";
+import styles from "../styles/layout/graph.module.scss";
 import {
   LineChart,
   Line,
@@ -69,10 +70,10 @@ const Graph: React.SFC<IGraphProps> = ({ graphValues, lines, labels, filterKey }
   }
 
   return (
-    <div>
+    <div className={styles.graph__wrapper}>
       <LineChart
-        width={700}
-        height={300}
+        width={800}
+        height={400}
         data={graphValues}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >

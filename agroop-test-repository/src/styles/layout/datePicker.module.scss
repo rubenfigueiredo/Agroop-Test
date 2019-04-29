@@ -1,0 +1,13 @@
+@import "../components/_input.scss";
+
+.datePicker{
+    &__input_box{
+        @extend .input;
+        font-weight: 600;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+    &__calendar_wrapper{
+        position: absolute;
+    }
+}

@@ -14,7 +14,7 @@ import {
 import DateRangePickerSelector from "../components/DateRangePickerSelector";
 import * as originalMoment from "moment";
 import { extendMoment, DateRange } from "moment-range";
-import styles from "../styles/components/container.module.scss";
+import styles from "../styles/layout/container.module.scss";
 
 const moment = extendMoment(originalMoment);
 
@@ -32,8 +32,10 @@ const SoilMoisture: React.SFC<any> = props => {
 
   let [graphSelectedValues, setGraphSelectedValues] = useState(initGraphValues);
   const today = moment();
-  const [dates, setDates] = useState(moment.range(today.clone().subtract(7, "days"), today.clone()));
-  
+  const [dates, setDates] = useState(
+    moment.range(today.clone().subtract(7, "days"), today.clone())
+  );
+
   const filterKey = (key: any, filter: any) => {
     filter === "true"
       ? filterSelectedValues(key, graphSelectedValues, setGraphSelectedValues)
@@ -50,7 +52,7 @@ const SoilMoisture: React.SFC<any> = props => {
 
     let beginDate = new Date(values.start);
     let endDate = new Date(values.end);
-    
+
     let params: SoilMoistureParams = {
       beginDate: beginDate.getTime(),
       deviceID: id,
@@ -68,30 +70,33 @@ const SoilMoisture: React.SFC<any> = props => {
       <div className={styles.container__title_div}>
         <div className={styles.container__table}>
           <div className={styles.container__table__cell}>
-            <h3 className={styles.container__title}>Device - {id}</h3>
+            <h2 className={styles.container__title}>Device - {id}</h2>
           </div>
           <div className={styles.container__table__cell}>
-            <DateRangePickerSelector dates={dates} selectDates={selectDates} today={today}/>
+            <DateRangePickerSelector
+              dates={dates}
+              selectDates={selectDates}
+              today={today}
+            />
           </div>
         </div>
       </div>
       <div>
-        <Graph
-          filterKey={filterKey}
-          lines={graphSelectedValues}
-          graphValues={soilMoistureService.state.soilMoisture}
-          labels={initGraphValues}
-        />
+          <Graph
+            filterKey={filterKey}
+            lines={graphSelectedValues}
+            graphValues={soilMoistureService.state.soilMoisture}
+            labels={initGraphValues}
+          />
+          <Graph
+            lines={sumGraphValues}
+            graphValues={sumValues(
+              soilMoistureService.state.soilMoisture,
+              graphSelectedValues
+            )}
+            labels={sumGraphValues}
+          />
       </div>
-      <Graph
-        lines={sumGraphValues}
-        graphValues={sumValues(
-          soilMoistureService.state.soilMoisture,
-          graphSelectedValues
-        )}
-        labels={sumGraphValues}
-      />
-      <div />
     </div>
   );
 };

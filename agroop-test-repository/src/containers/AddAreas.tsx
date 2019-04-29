@@ -3,7 +3,7 @@ import { useService } from "rc-service";
 import { AreaService } from "../services/AreaService";
 import { DeviceService } from "../services/DeviceService";
 import AreasForm from "../components/AreasForm";
-import styles from "../styles/components/container.module.scss";
+import styles from "../styles/layout/container.module.scss";
 
 
 const AddArea: React.SFC<any> = (props) => {

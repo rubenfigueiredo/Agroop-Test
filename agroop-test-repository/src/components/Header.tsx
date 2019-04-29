@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "../styles/components/header.module.scss";
+import styles from "../styles/layout/header.module.scss";
 
 const Header: React.SFC<any> = () => {
   return (

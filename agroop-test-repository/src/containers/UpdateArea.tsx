@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
 import { AreaService, Area } from "../services/AreaService";
 import { DeviceService } from "../services/DeviceService";
 import { useService } from "rc-service";
 import AreasForm from "../components/AreasForm";
-import styles from "../styles/components/container.module.scss";
+import styles from "../styles/layout/container.module.scss";
 
 const UpdateArea: React.SFC<any> = props => {
   const { id } = props.match.params;
@@ -12,7 +11,7 @@ const UpdateArea: React.SFC<any> = props => {
   const areaService = useService(AreaService);
   const deviceService = useService(DeviceService);
   const updateAreaAction = (values: any) => {
-    console.log("updated values", values);
+    //console.log("updated values", values);
     areaService.changeArea(values).then(props.history.push("/areas"));
   };
   const devices = deviceService.devices.read();

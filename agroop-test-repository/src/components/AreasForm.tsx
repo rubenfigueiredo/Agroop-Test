@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Area } from "../services/AreaService";
-import styles from "../styles/components/form.module.scss";
+import styles from "../styles/layout/form.module.scss";
 
 interface IUpdateAreaProps {
   area?: Area;

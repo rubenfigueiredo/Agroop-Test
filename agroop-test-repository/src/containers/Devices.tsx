@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AreaService } from "../services/AreaService";
 import { useService } from "rc-service";
 import { Area } from '../services/AreaService';
-import styles from '../styles/components/card.module.scss'
+import styles from '../styles/layout/card.module.scss'
 
 const Devices: React.SFC<Area> = () => {
   const areaService = useService(AreaService);
