@@ -1,6 +1,7 @@
 export interface graphLine {
   key: string,
   color: string
+  label: string
 }
 
 function sumValues(array: any, selectedValues? : graphLine[]){

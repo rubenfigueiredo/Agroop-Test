@@ -2,9 +2,8 @@
 @import "../components/_table.module.scss";
 
 .container{
-    padding: 3%;
     background-color: $color-white;
-    
+    width:100%;
     &__title{
         overflow: hidden;
         white-space: nowrap;
@@ -12,6 +11,7 @@
         flex-grow: 1;
         font-weight: 600;
         color: $color-dark-grey;
+        padding: 3%;
     }
     &__title_div{
         width: 60%;

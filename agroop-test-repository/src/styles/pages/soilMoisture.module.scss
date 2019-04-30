@@ -1,0 +1,5 @@
+@import "../layout/container.module.scss";
+
+.soilMoisture{
+    @extend %container;
+}

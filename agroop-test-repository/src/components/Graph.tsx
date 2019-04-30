@@ -3,6 +3,7 @@ import moment from "moment";
 import styles from "../styles/layout/graph.module.scss";
 import {
   LineChart,
+  ResponsiveContainer,
   Line,
   XAxis,
   YAxis,
@@ -18,6 +19,8 @@ interface IGraphProps {
   labels: graphLine[]
 }
 const Graph: React.SFC<IGraphProps> = ({ graphValues, lines, labels, filterKey }) => {
+  //console.log("graphValues", graphValues);
+  
   const toggleFilterKey = filterKey ? (e: any) => {
     e.persist();
     const data = e.target.dataset;
@@ -31,17 +34,18 @@ const Graph: React.SFC<IGraphProps> = ({ graphValues, lines, labels, filterKey }
 
   const Labels = labels.map((label: graphLine) => {
     return (
-      <div key={label.key} style={{cursor: 'pointer'}}>
+      <div key={label.key} className={styles.graph__label}>
         {toggleFilterKey ? (
           <div
             data-key={label.key}
             data-filter={false}
             onClick={toggleFilterKey}
+            style={{"color": label.color}}
           >
-            {label.key}
+            {label.label}
           </div>
         ) : (
-          <div>{label.key}</div>
+          <div>{label.label}</div>
         )}
       </div>
     );
@@ -70,20 +74,19 @@ const Graph: React.SFC<IGraphProps> = ({ graphValues, lines, labels, filterKey }
   }
 
   return (
-    <div className={styles.graph__wrapper}>
-      <LineChart
-        width={800}
-        height={400}
-        data={graphValues}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <XAxis dataKey="timestamp" hide={true} />
-        <YAxis />
-        <Tooltip cursor={false} content={TooltipContent}/>
-        <CartesianGrid vertical={false} horizontal={true} />
-        {Lines}
-      </LineChart>
-      <div>{Labels}</div>
+    <div className={styles.graph_wrapper}>
+      <ResponsiveContainer width="99%" aspect={3}>
+        <LineChart
+          data={graphValues}
+        >
+          <XAxis dataKey="timestamp" hide={true} />
+          <YAxis />
+          <Tooltip cursor={false} content={TooltipContent}/>
+          <CartesianGrid vertical={false} horizontal={true} />
+          {Lines}
+        </LineChart>
+      </ResponsiveContainer>
+      <div className={styles.graph__label_div}>{Labels}</div>
     </div>
   );
 };

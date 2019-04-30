@@ -14,7 +14,7 @@ import {
 import DateRangePickerSelector from "../components/DateRangePickerSelector";
 import * as originalMoment from "moment";
 import { extendMoment, DateRange } from "moment-range";
-import styles from "../styles/layout/container.module.scss";
+import styles from "../styles/pages/soilMoisture.module.scss";
 
 const moment = extendMoment(originalMoment);
 
@@ -23,12 +23,12 @@ const SoilMoisture: React.SFC<any> = props => {
   const { id } = props.match.params;
 
   const initGraphValues: graphLine[] = [
-    { key: "S1T", color: "green" },
-    { key: "S2T", color: "blue" },
-    { key: "S3T", color: "orange" },
-    { key: "S4T", color: "pink" }
+    { key: "S1T", color: "green" , label: "10cm"},
+    { key: "S2T", color: "blue" , label: "25cm"},
+    { key: "S3T", color: "orange" , label: "40cm"},
+    { key: "S4T", color: "pink" , label: "55cm"}
   ];
-  const sumGraphValues: graphLine[] = [{ key: "sum", color: "black" }];
+  const sumGraphValues: graphLine[] = [{ key: "sum", color: "black" , label: "Sum"}];
 
   let [graphSelectedValues, setGraphSelectedValues] = useState(initGraphValues);
   const today = moment();
@@ -82,6 +82,7 @@ const SoilMoisture: React.SFC<any> = props => {
         </div>
       </div>
       <div>
+
           <Graph
             filterKey={filterKey}
             lines={graphSelectedValues}

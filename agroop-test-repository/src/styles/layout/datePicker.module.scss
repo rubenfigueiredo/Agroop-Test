@@ -1,4 +1,5 @@
 @import "../components/_input.scss";
+@import "../base/variables.module.scss";
 
 .datePicker{
     &__input_box{
@@ -9,5 +10,7 @@
     }
     &__calendar_wrapper{
         position: absolute;
+        background: $color-white-grey;
+        z-index: 1;
     }
 }
