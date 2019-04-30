@@ -5,7 +5,7 @@ import {Area} from '../services/AreaService';
 interface IAreaProps {
   areas?: Area[]
 }
-
+//Este ficheiro é usado onde???
 const AreaList: React.SFC<IAreaProps> = ({ areas }) => {
   
   const areaList = areas ? (

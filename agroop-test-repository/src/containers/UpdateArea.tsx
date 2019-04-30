@@ -11,8 +11,8 @@ const UpdateArea: React.SFC<any> = props => {
   const areaService = useService(AreaService);
   const deviceService = useService(DeviceService);
   const updateAreaAction = (values: any) => {
-    //console.log("updated values", values);
-    areaService.changeArea(values).then(props.history.push("/areas"));
+    // a Promise expects a function
+    areaService.changeArea(values).then(() => props.history.push("/areas"));
   };
   const devices = deviceService.devices.read();
   let area: any = areaService.area.read(id);

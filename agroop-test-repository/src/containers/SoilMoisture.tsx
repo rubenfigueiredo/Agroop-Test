@@ -16,12 +16,9 @@ import * as originalMoment from "moment";
 import { extendMoment, DateRange } from "moment-range";
 import styles from "../styles/pages/soilMoisture.module.scss";
 
+//As variaveis constantes devem mantidas fora do render do component
+//Não esquecer que o render do componente pode correr muitas vezes, quanto menos codigo desnecessario tiver melhor
 const moment = extendMoment(originalMoment);
-
-const SoilMoisture: React.SFC<any> = props => {
-  let soilMoistureService = useService(SoilMoistureService);
-  const { id } = props.match.params;
-
   const initGraphValues: graphLine[] = [
     { key: "S1T", color: "green" , label: "10cm"},
     { key: "S2T", color: "blue" , label: "25cm"},
@@ -30,6 +27,9 @@ const SoilMoisture: React.SFC<any> = props => {
   ];
   const sumGraphValues: graphLine[] = [{ key: "sum", color: "black" , label: "Sum"}];
 
+const SoilMoisture: React.SFC<any> = props => {
+  let soilMoistureService = useService(SoilMoistureService);
+  const { id } = props.match.params;
   let [graphSelectedValues, setGraphSelectedValues] = useState(initGraphValues);
   const today = moment();
   const [dates, setDates] = useState(

@@ -63,6 +63,7 @@ const Graph: React.SFC<IGraphProps> = ({ graphValues, lines, labels, filterKey }
     );
   });
 
+  // esta função é "pure" não há necessidade de estar dentro do "render" do component
   const TooltipContent = ({active, payload, label}: any) => {
     if(active){
       let result = payload && payload.map((value: any) => {

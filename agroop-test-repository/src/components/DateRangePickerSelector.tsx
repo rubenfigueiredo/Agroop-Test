@@ -35,7 +35,7 @@ const DateRangePickerSelector: React.SFC<IDateRangePickerSelectorProps> = ({
         {isOpen && (
           <DateRangePicker
             value={dates}
-            minimumDate={
+            minimumDate={ // visto que estes valores são contantes porque não declaralo como constantes fora do componente?
               new Date(
                 today
                   .clone()

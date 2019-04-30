@@ -7,8 +7,9 @@ import styles from '../styles/layout/card.module.scss'
 
 const Areas: React.SFC<Area> = () => {
   const areaService = useService(AreaService);
+  // é provavel que aja algum erro com o createCache pois faço refresh e ás vezes não aparece dados
   const areas = areaService.areas.read();
-  const deleteAreaAction = (id: any) => (areaService.deleteArea(id));
+  //não há necessidade de criar 2 closures
 
   const areaList = areas.value ? (
     areas.value.map((area: Area) => (
@@ -25,7 +26,9 @@ const Areas: React.SFC<Area> = () => {
           <div className={`${styles.card__right_panel} ${styles.card__panel}`}>
             <div>
               <Link className={styles.card__button} to={`/update-area/` + area.id}><span >Edit</span></Link>
-              <div className={styles.card__button}><span className={styles.card_delete} onClick={() => deleteAreaAction(area.id)}>Delete</span></div> 
+              <div className={styles.card__button}>
+                <span className={styles.card_delete} onClick={() => areaService.deleteArea(area.id)}>Delete</span>
+                </div> 
             </div>
           </div>
         </div>

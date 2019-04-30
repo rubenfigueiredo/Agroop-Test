@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import UpdateArea from "./containers/UpdateArea";
 import Devices from "./containers/Devices";
 import SoilMoisture from "./containers/SoilMoisture";
-import "./App.scss";
+import "./App.scss"; //unused
 import styles from './styles/layout/body.module.scss';
 
 
