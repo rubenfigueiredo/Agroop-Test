@@ -1,5 +1,14 @@
 @import "../layout/container.module.scss";
-
+@import "../layout/graph.module.scss";
+@import "../components/title.module";
 .soilMoisture{
     @extend .container;
+    &__graph_title{
+        @extend .title; 
+        margin: 2%;
+        margin-left: 5%;
+    }
+    &__graph_wrapper{
+        @extend .graph_wrapper_all;
+    }
 }

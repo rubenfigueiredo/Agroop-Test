@@ -14,7 +14,7 @@ const DateRangePickerSelector: React.SFC<IDateRangePickerSelectorProps> = ({
   today
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log("rendered dates", dates);
+  //console.log("rendered dates", dates);
 
   const toggleOpen = (): void => {
     setIsOpen(!isOpen);

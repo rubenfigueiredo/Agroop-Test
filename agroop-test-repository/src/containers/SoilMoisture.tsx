@@ -81,14 +81,15 @@ const SoilMoisture: React.SFC<any> = props => {
           </div>
         </div>
       </div>
-      <div>
-
+      <div className={styles.soilMoisture__graph_wrapper}>
+          <div className={styles.soilMoisture__graph_title}>Soil Humidity</div>
           <Graph
             filterKey={filterKey}
             lines={graphSelectedValues}
             graphValues={soilMoistureService.state.soilMoisture}
             labels={initGraphValues}
           />
+          <div className={styles.soilMoisture__graph_title}>Soil Humidity - sum</div>
           <Graph
             lines={sumGraphValues}
             graphValues={sumValues(
